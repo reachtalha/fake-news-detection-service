@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Detection</title>
+</head>
+<body>
+    <h1>Fake News Detection</h1>
+
+    <form method="POST" action="{% url 'detect_news' %}">
+        {% csrf_token %}
+        <label for="input_text">Enter Text:</label><br>
+        <textarea name="input_text" id="input_text" rows="5" cols="50"></textarea><br><br>
+        <input type="submit" value="Detect Fake News">
+    </form>
+
+    {% if input_text %}
+        <h2>Input Text:</h2>
+        <p>{{ input_text }}</p>
+
+        <h2>Prediction:</h2>
+        {% if is_genuine %}
+            <p>This text is predicted to be genuine with {{probability}}% accuracy.</p>
+        {% else %}
+            <p>This text is predicted to be fake.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
